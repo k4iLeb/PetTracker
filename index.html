@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>pet-tracker</title>
+    <link rel="stylesheet" href="src/style.css" />
+  </head>
+  <body>
+    <div id="app">
+      <div class="navbar">
+        <div class="title">Pet Tracker</div>
+        <div
+          id="auth-banner"
+          style="
+            background: #f4f4f4;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #ddd;
+          "
+        >
+          <span id="auth-status">Checking authentication status...</span>
+          <button id="auth-btn">Please wait</button>
+        </div>
+      </div>
+      <div class="container">
+        <div class="sidebar">
+          <button id="addPetBtn">Add Pet</button>
+          <ul id="pet-list" class="petList"></ul>
+        </div>
+        <div id="summary" class="mainWindow"></div>
+      </div>
+    </div>
+    <div id="popup" class="blurBG hidden">
+      <div id="popup-container" class="popup-container">
+        <form id="addPetForm" class="hidden">
+          <h2>Add New Pet</h2>
+
+          <div class="form-group">
+            <label for="petName">Name:</label>
+            <input
+              type="text"
+              id="petName"
+              name="petName"
+              placeholder="e.g. Bella"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="petSpecies">Species:</label>
+            <select id="petSpecies" name="petSpecies">
+              <option value="cat">Cat</option>
+              <option value="dog">Dog</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="petBirth">Birth:</label>
+            <input type="date" id="petBirth" name="petBirth" />
+          </div>
+
+          <div class="form-actions">
+            <button type="submit" class="save-btn">Save Pet</button>
+            <button type="button" class="cancel-btn" id="closePetForm">
+              Cancel
+            </button>
+          </div>
+        </form>
+        <div id="details" class="popup hidden"></div>
+        <form id="add-stat" class="popup hidden"></form>
+        <div id="delete-safeguard" class="popup hidden">
+          <h2></h2>
+          <div class="safeguard-actions">
+            <button class="actions-btn" id="safeguard-yes">YES</button
+            ><button class="actions-btn" id="safeguard-no">NO</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script type="module" src="src/main.js"></script>
+    <template id="details-template">
+      <button class="det-close-btn">×</button>
+      <div class="det-title">
+        <span id="det-pet-name"></span>
+        <button id="add-stat-btn" class="add-stat-btn">+</button>
+        <button id="det-edit-btn" class="det-edit-btn">Edit</button>
+      </div>
+    </template>
+    <template id="summary-template">
+      <div class="summ-title">
+        <span id="sum-pet-name"></span>
+        <span id="sum-pet-age"></span>
+      </div>
+      <div class="sum-list-group" data-type="weight">
+        <h2 class="sum-list-item-title">ΒΑΡΟΣ (Kg)</h2>
+        <div class="time-elapsed" data-status=""></div>
+        <div class="sum-list-value-row">
+          <span class="value"></span>
+          <span class="date"></span>
+        </div>
+      </div>
+      <div class="sum-list-group" data-type="spotOn">
+        <h2 class="sum-list-item-title">ΑΜΠΟΥΛΑ</h2>
+        <div class="time-elapsed" data-status=""></div>
+        <div class="sum-list-value-row">
+          <span class="value"></span>
+          <span class="date"></span>
+        </div>
+      </div>
+      <div class="sum-list-group" data-type="antiparasitics">
+        <h2 class="sum-list-item-title">ΕΝΔΟΠΑΡΑΣΙΤΑ</h2>
+        <div class="time-elapsed" data-status=""></div>
+        <div class="sum-list-value-row">
+          <span class="value"></span>
+          <span class="date"></span>
+        </div>
+      </div>
+      <div class="sum-list-group" data-type="vaccines">
+        <h2 class="sum-list-item-title">ΕΜΒΟΛΙΑ</h2>
+        <div class="time-elapsed" data-status=""></div>
+        <div class="sum-list-value-row">
+          <span class="date"></span>
+        </div>
+      </div>
+      <button id="deletePetBtn">Delete Pet</button>
+    </template>
+    <template id="add-stat-template">
+      <div class="add-stat-grp-weight hidden" data-type="weight">
+        <label for="statWeight">Add Weight:</label>
+        <input
+          type="number"
+          id="statWeight"
+          name="statWeight"
+          step="0.05"
+          min="0"
+          placeholder="e.g. 4.5"
+        />
+      </div>
+      <div class="add-stat-grp-spotOn hidden" data-type="spotOn">
+        <label for="statSpotOn">Add Spot-On:</label>
+        <input
+          type="text"
+          id="statSpotOn"
+          name="statSpotOn"
+          placeholder="e.g. Advocate"
+        />
+      </div>
+      <div
+        class="add-stat-grp-antiparasitics hidden"
+        data-type="antiparasitics"
+      >
+        <label for="statAntiparasitics">Add Antiparasitic:</label>
+        <input
+          type="text"
+          id="statAntiparasitics"
+          name="statAntiparasitics"
+          placeholder="e.g. Drontal"
+        />
+      </div>
+      <div class="add-stat-grp-date">
+        <label for="statDate">Date:</label>
+        <input type="date" id="statDate" name="statDate" required />
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" class="add-stat-btn">Add</button>
+        <button type="button" class="cancel-stat-btn" id="closeAddStatForm">
+          Cancel
+        </button>
+      </div>
+    </template>
+  </body>
+</html>
